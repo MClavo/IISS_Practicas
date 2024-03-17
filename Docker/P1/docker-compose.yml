@@ -1,0 +1,33 @@
+version: '3'
+services:
+  drupal:
+    container_name: drupal
+    image: drupal:latest
+    ports:
+      - "81:80"
+    volumes:
+      - drupal_data:/var/www/html
+    networks:
+      - WebP1
+    depends_on:
+     - mysql
+
+  mysql:
+    container_name: mysql
+    image: mysql:latest
+    environment:
+      MYSQL_DATABASE: drupal
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - WebP1
+
+networks:
+  WebP1:
+
+volumes:
+  drupal_data:
+  mysql_data:

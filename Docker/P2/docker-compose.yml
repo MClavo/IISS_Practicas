@@ -1,0 +1,33 @@
+version: '3'
+services:
+  wordpress:
+    container_name: wordpress
+    image: wordpress:latest
+    ports:
+      - "82:80"
+    volumes:
+      - wordpress_data:/var/www/html
+    networks:
+      - redDocker
+    depends_on:
+      - mariadb
+  
+  mariadb:
+    container_name: mariadb
+    image: mariadb:latest
+    environment:
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - redDocker
+
+networks:
+  redDocker:
+
+volumes:
+  wordpress_data:
+  mariadb_data:
